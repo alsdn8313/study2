@@ -1,0 +1,25 @@
+-- 페이징
+-- 윈도우함수 지원하는 DBMS : row_number()
+-- oracle : rownum
+-- mysql : limit
+   select * from board order by col limit 시작인덱스, 레코드수; 
+-- sqlserver : top
+
+select rownum, bo_no, bo_ip from tb_board where rownum <= 10;
+
+
+-- rownum 의사컬럼 사용
+select * from (select rownum rn, bo_no, bo_ip         -- 인라인뷰를 활용한다.
+                 from (select bo_no, bo_ip
+                         from tb_board
+                        order by bo_ip asc) a
+               ) b           
+ where rn between 11 and 20;   -- rn > 10 and rn <= 20
+
+
+-- 분석함수 row_number() over(order by를 over안에 써야한다.) 이용
+select * 
+  from (select row_number() over(order by bo_ip asc) rn
+             , bo_no, bo_ip
+          from tb_board) a
+ where rn between 11 and 20;
