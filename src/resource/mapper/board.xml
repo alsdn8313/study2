@@ -71,7 +71,11 @@
   </select>
   
   <insert id="insertBoard" parameterType="board">
-  	 INSERT INTO tb_board                                           
+  <selectKey keyProperty="bo_no" order="BEFORE" resultType="int">
+  	SELECT seq_board.nextval from dual
+  </selectKey>
+  
+  	  INSERT INTO tb_board                                           
                ( bo_no                                                     
 	            , bo_title                                                  
 	            , bo_writer                                             
@@ -82,16 +86,16 @@
 	            , bo_read_cnt                                             
 	            , bo_reg_date                                               
 	            , bo_mod_date )                                           
-           VALUES ( seq_board.nextval 
-                    , #{bo_title}
-                    , #{bo_writer}
-                    , #{bo_passwd}
-                    , #{bo_email}
-                    , #{bo_content}
-                    , 0
-                    , 0
-                    , SYSDATE
-                    , SYSDATE)
+        VALUES ( #{bo_no}
+               , #{bo_title}
+               , #{bo_writer}
+               , #{bo_passwd}
+               , #{bo_email}
+               , #{bo_content}
+                   , 0
+                   , 0
+               , SYSDATE
+               , SYSDATE)
   </insert>
 
   <update id="updateBoard" parameterType="board">

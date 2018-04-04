@@ -19,22 +19,16 @@
 <body>
 <div class="container">
 
-	
-	 
 	<div class="row text-center" >
 		<div class="alert alert-info col-md-4 col-md-offset-4">
 			<p>${message}</p>
 		</div>
 	</div>
 	
-	<div class="row">
-		
-	</div>
-	
-
 <div class="row">
 	<div class="col-md-6 col-xs-4">
 		<a href="boardList.do" class="btn btn-sm btn-warning">목록으로</a>
+		<a href="boardView.do?bo_no=${board.bo_no}" class="btn btn-sm btn-warning">글 보기</a>
 	</div>
 </div>
 
